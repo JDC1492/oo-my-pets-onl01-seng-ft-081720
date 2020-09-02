@@ -1,17 +1,15 @@
 class Owner
   attr_reader :name, :species
     @@all = []
-    @@count = 0
   
     def initialize(name = "Beckham", species = "human")
       @name = name
       @species = species
       @@all << self
-
     end
 
     def say_species
-      "I am a human."
+      "I am a #{species}."
     end
 
     def self.all
@@ -27,6 +25,32 @@ class Owner
     end
 
     def cats
-      Cat.all
+      Cat.all.select do |cat|
+        if cat.owner == self
+          cat
+        end
+      end
+    end
+
+    def dogs
+      Dog.all.select do |dog|
+        if dog.owner == self
+          dog
+        end
+      end
+    end
+
+    def buy_cat(cat_instance)
+      Cat.new(cat_instance, self)
+      
+    end
+
+    def buy_dog(dog_instance)
+      Dog.new(dog_instance, self)
+    end
+
+    def walk_dogs
+      Dog.mood=("Happy")
+      
     end
 end
